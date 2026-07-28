@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Locky{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row g-4">
+
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h1 class="h5 mb-0">Les dernières prestations</h1>
+                </div>
+                <div class="card-body p-0">
+                    {% if prestations is empty %}
+                        <p class="text-muted m-3 mb-0">Aucune prestation pour le moment.</p>
+                    {% else %}
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0 prestation-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="col-date">Date de la demande</th>
+                                        <th scope="col" class="col-nom">Nom</th>
+                                        <th scope="col">Extrait</th>
+                                        <th scope="col" class="col-remuneration">Rémunération</th>
+                                        <th scope="col" class="col-actions">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for prestation in prestations %}
+                                        <tr>
+                                            <td>{{ prestation.dateCreation|date('d/m/Y') }}</td>
+                                            <td>{{ prestation.nom }}</td>
+                                            <td>{{ prestation.extrait }}</td>
+                                            <td>{{ prestation.remuneration|number_format(2, ',', ' ') }} €</td>
+                                            <td>
+                                                <a href="{{ path('app_prestation_show', {id: prestation.id}) }}"
+                                                   class="btn btn-primary btn-sm">Voir</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h2 class="h5 mb-0">Dernier inscrit</h2>
+                </div>
+                <div class="card-body">
+                    {% if dernierUtilisateur is null %}
+                        <p class="text-muted mb-0">Aucun utilisateur inscrit pour le moment.</p>
+                    {% else %}
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center flex-shrink-0"
+                                 style="width: 3rem; height: 3rem;">
+                                {{ (dernierUtilisateur.prenom|first ~ dernierUtilisateur.nom|first)|upper }}
+                            </div>
+                            <div class="ms-3">
+                                <div class="fw-semibold">
+                                    {{ dernierUtilisateur.prenom }} {{ dernierUtilisateur.nom }}
+                                </div>
+                                <div class="text-muted small">{{ dernierUtilisateur.email }}</div>
+                            </div>
+                        </div>
+
+                        <dl class="row mb-0 small">
+                            <dt class="col-5 text-muted fw-normal">Inscrit le</dt>
+                            <dd class="col-7 mb-0">{{ dernierUtilisateur.dateInscription|date('d/m/Y') }}</dd>
+                        </dl>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

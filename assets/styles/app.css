@@ -1,3 +1,24 @@
 body {
-    background-color: skyblue;
+    background-color: #f8f9fa;
+}
+
+/* Tableau des prestations de la page d'accueil */
+.prestation-table td {
+    vertical-align: top;
+}
+
+.prestation-table .col-date {
+    width: 15%;
+}
+
+.prestation-table .col-nom {
+    width: 22%;
+}
+
+.prestation-table .col-remuneration {
+    width: 12%;
+}
+
+.prestation-table .col-actions {
+    width: 10%;
 }
